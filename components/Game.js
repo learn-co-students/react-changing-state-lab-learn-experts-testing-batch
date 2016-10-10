@@ -62,7 +62,6 @@ class Game extends React.Component {
     else {
       return false
     }
-    // return this.state.board.every((field) => field);
   }
 
   render () {
