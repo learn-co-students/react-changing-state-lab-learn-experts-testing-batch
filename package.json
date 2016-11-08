@@ -12,7 +12,7 @@
     "debug-ide": "./bin/debug-ide",
     "copy-git-hooks": "./bin/copy-hooks",
     "test": "mocha -R mocha-multi --require test/root.js --reporter-options nyan=-,json=.results.json",
-    "bundle": "browserify index.js -t babelify --exclude react/addons --exclude react/lib/ExecutionEnvironment --exclude react/lib/ReactContext -o bundle.js",
+    "bundle": "watchify index.js -t babelify --exclude react/addons --exclude react/lib/ExecutionEnvironment --exclude react/lib/ReactContext -o bundle.js",
     "postinstall": "npm run copy-git-hooks"
   },
   "repository": {
