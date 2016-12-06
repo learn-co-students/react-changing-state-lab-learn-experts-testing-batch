@@ -7,78 +7,72 @@ class Game extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      board: [null,null,null,null,null,null,null,null,null],
-      turn: "X"
+      board: [null, null, null, null, null, null, null, null, null],
+      turn: 'X'
     };
 
     this.handleReset = this.handleReset.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.changeBoardState = this.changeBoardState.bind(this);
   }
 
   handleReset (ev) {
     ev.preventDefault();
     this.setState({
-      board: [null,null,null,null,null,null,null,null,null],
-      turn: "X"
+      board: [null, null, null, null, null, null, null, null, null],
+      turn: 'X'
     })
   }
 
-  changeBoardState(i){
-    var array = this.state.board;
+  updateBoard(index){
+    var board = [...this.state.board];
+    board[index] = this.state.turn;
+    this.setState({board: board});
+  }
+
+  updatePlayer(){
     if(this.state.turn === "X"){
-      array.splice(i, 1, "X");
+      this.setState({turn: "O"});
     } else {
-      array.splice(i, 1, "O")
+      this.setState({turn: "X"});
     }
-    return array;
   }
 
   handleClick (i, ev) {
     ev.preventDefault();
-    if(this.state.turn === "X"){
-      this.setState({
-        board: this.changeBoardState(i),
-        turn: "O"
-      })
-    } else {
-      this.setState({
-        board: this.changeBoardState(i),
-        turn: "X"
-      })
-    }
-    this.isComplete();
+    this.updateBoard(i);
+    this.updatePlayer();
   }
 
   getWinner () {
-    for(var i = 0; i < solutions.length; i++){
-      var winCombo1 = this.state.board[solutions[i][0]];
-      var winCombo2 = this.state.board[solutions[i][1]];
-      var winCombo3 = this.state.board[solutions[i][2]];
+    var board = this.state.board;
+    var winner;
+    solutions.forEach(function(winCombo){
+      var winCombo1 = board[winCombo[0]];
+      var winCombo2 = board[winCombo[1]];
+      var winCombo3 = board[winCombo[2]];
 
-      if(winCombo1 === "X" && winCombo2 === "X" && winCombo3 === "X"){
-        return 'X';
+      if(winCombo1 === winCombo2 && winCombo2 === winCombo3){
+        winner = winCombo1;
       }
-      else if(winCombo1 === "O" && winCombo2 === "O" && winCombo3 === "O"){
-        return "O";
-      }
-    }
+    })
+
+    return winner;
+  }
+
+  getTie(){
+    return !(this.state.board.includes(null))
   }
 
   isComplete () {
-    if(this.state.board.includes(null)){
-      return false;
-    } else {
-      return true;
-    }
+    return (this.getTie() || this.getWinner())
   }
 
   render () {
     return (
-      <div className="game">
+      <div className='game'>
         <Board board={this.state.board} onClick={this.handleClick}/>
         {this.isComplete() ? <Status winner={this.getWinner()} /> : null}
-        <button className='game__reset' onClick={this.handleReset}>Reset</button>
+        <button className="game__reset" onClick={this.handleReset}>Reset</button>
       </div>
     );
   }
