@@ -5,7 +5,16 @@ class Board extends React.Component {
   render () {
     const { board, onClick } = this.props;
     return (
-      <div>
+      <div className="board">
+        <Field onClick={this.props.onClick.bind(null, 0)}/>
+        <Field onClick={this.props.onClick.bind(null, 1)} />
+        <Field onClick={this.props.onClick.bind(null, 2)} />
+        <Field onClick={this.props.onClick.bind(null, 3)} />
+        <Field onClick={this.props.onClick.bind(null, 4)} />
+        <Field onClick={this.props.onClick.bind(null, 5)} />
+        <Field onClick={this.props.onClick.bind(null, 6)} />
+        <Field onClick={this.props.onClick.bind(null, 7)} />
+        <Field onClick={this.props.onClick.bind(null, 8)} />
       </div>
     );
   }
