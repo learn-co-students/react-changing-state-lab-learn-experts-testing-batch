@@ -19,12 +19,12 @@ describe('<Game />', function () {
       null, null, null
     ]);
   });
-  
+
   it('should have `turn` state', function () {
     const wrapper = shallow(<Game />);
     expect(wrapper.state().turn).toBe('X');
   });
-  
+
   it('should have `turn` state', function () {
     const wrapper = shallow(<Game />);
     expect(wrapper.state().turn).toBe('X');
@@ -42,7 +42,8 @@ describe('<Game />', function () {
         'X', 'O', 'X',
         'O', 'O', 'X',
         'O', 'X', 'O'
-      ]
+      ],
+      count: 9
     });
     expect(wrapper.find(Status).length).toBe(1);
     expect(wrapper.find(Status).prop('winner')).toBe(undefined);
