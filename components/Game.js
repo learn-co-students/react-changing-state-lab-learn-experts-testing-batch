@@ -51,7 +51,7 @@ class Game extends React.Component {
   }
 
   isComplete () {
-    return (this.state.count ===  9 || this.getWinner())
+    return (this.state.count ===  9 || this.getWinner());
   }
 
   render () {
